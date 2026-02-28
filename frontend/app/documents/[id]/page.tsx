@@ -56,7 +56,7 @@ export default function DocumentDetailPage() {
   };
 
   if (isLoading || !data) {
-    return <div className="text-gray-500">加载中...</div>;
+    return <div className="text-slate-500">加载中...</div>;
   }
 
   const exp = data.extraction?.experience as { company?: string; role?: string; duration?: string }[] | undefined;
@@ -64,22 +64,22 @@ export default function DocumentDetailPage() {
 
   return (
     <div>
-      <Link href="/documents" className="text-blue-600 hover:underline mb-4 inline-block">
+      <Link href="/documents" className="text-cyan-600 hover:text-cyan-700 font-medium mb-4 inline-block">
         返回文档列表
       </Link>
-      <h1 className="text-2xl font-bold mb-2">{data.original_filename}</h1>
-      <p className="text-sm text-gray-500 mb-6">
+      <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{data.original_filename}</h1>
+      <p className="text-sm text-slate-500 mb-6">
         {data.type === "resume" ? "简历" : "职位描述"} · {data.created_at}
       </p>
 
       {data.extraction && data.extraction.skills?.length > 0 && (
-        <div className="mb-6 p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-          <h2 className="text-lg font-semibold mb-2">技能</h2>
+        <div className="mb-6 p-5 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200/80 dark:border-slate-700/50 shadow-sm">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">技能</h2>
           <div className="flex flex-wrap gap-2">
             {data.extraction.skills.map((s, i) => (
               <span
                 key={i}
-                className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-sm"
+                className="px-3 py-1 bg-cyan-100 dark:bg-cyan-900/40 text-cyan-800 dark:text-cyan-200 rounded-full text-sm"
               >
                 {s}
               </span>
@@ -89,14 +89,14 @@ export default function DocumentDetailPage() {
       )}
 
       {exp && exp.length > 0 && (
-        <div className="mb-6 p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-          <h2 className="text-lg font-semibold mb-2">工作经历</h2>
+        <div className="mb-6 p-5 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200/80 dark:border-slate-700/50 shadow-sm">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">工作经历</h2>
           <ul className="space-y-2">
             {exp.map((e, i) => (
-              <li key={i} className="border-l-2 border-blue-500 pl-4">
-                <span className="font-medium">{e.role || "职位"}</span>
-                <span className="text-gray-500"> @ {e.company || "公司"}</span>
-                {e.duration && <span className="text-sm text-gray-400"> · {e.duration}</span>}
+              <li key={i} className="border-l-2 border-cyan-500 pl-4">
+                <span className="font-medium text-slate-900 dark:text-white">{e.role || "职位"}</span>
+                <span className="text-slate-500"> @ {e.company || "公司"}</span>
+                {e.duration && <span className="text-sm text-slate-400"> · {e.duration}</span>}
               </li>
             ))}
           </ul>
@@ -104,13 +104,13 @@ export default function DocumentDetailPage() {
       )}
 
       {edu && edu.length > 0 && (
-        <div className="mb-6 p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-          <h2 className="text-lg font-semibold mb-2">教育背景</h2>
-          <ul className="space-y-2">
+        <div className="mb-6 p-5 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200/80 dark:border-slate-700/50 shadow-sm">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">教育背景</h2>
+          <ul className="space-y-2 text-slate-700 dark:text-slate-300">
             {edu.map((e, i) => (
               <li key={i}>
                 {e.degree || "学位"} · {e.school || "学校"}
-                {e.year && <span className="text-gray-500"> ({e.year})</span>}
+                {e.year && <span className="text-slate-500"> ({e.year})</span>}
               </li>
             ))}
           </ul>
@@ -118,20 +118,20 @@ export default function DocumentDetailPage() {
       )}
 
       {data.type === "resume" && (
-        <div className="mb-6 p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-          <h2 className="text-lg font-semibold mb-2">AI 职业建议</h2>
+        <div className="mb-6 p-5 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200/80 dark:border-slate-700/50 shadow-sm">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">AI 职业建议</h2>
           <div className="flex gap-2 mb-2">
             <input
               type="text"
               value={targetRole}
               onChange={(e) => setTargetRole(e.target.value)}
               placeholder="目标岗位（可选）"
-              className="flex-1 px-3 py-2 border rounded-lg"
+              className="flex-1 px-4 py-2.5 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
             />
             <button
               onClick={fetchCareerAdvice}
               disabled={careerLoading}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+              className="px-5 py-2.5 bg-cyan-600 text-white rounded-xl hover:bg-cyan-700 disabled:opacity-50 shadow-lg shadow-cyan-500/25 transition"
             >
               {careerLoading ? "生成中..." : "获取建议"}
             </button>
@@ -150,7 +150,7 @@ export default function DocumentDetailPage() {
               )}
               {careerData.skill_roadmap?.length > 0 && (
                 <div>
-                  <h3 className="font-medium text-blue-700 dark:text-blue-400">技能路线图</h3>
+                  <h3 className="font-medium text-cyan-700 dark:text-cyan-400">技能路线图</h3>
                   <ul className="mt-1 space-y-1">
                     {careerData.skill_roadmap.map((r, i) => (
                       <li key={i}>
@@ -164,7 +164,7 @@ export default function DocumentDetailPage() {
               )}
               {careerData.learning_suggestions?.length > 0 && (
                 <div>
-                  <h3 className="font-medium text-purple-700 dark:text-purple-400">学习建议</h3>
+                  <h3 className="font-medium text-teal-700 dark:text-teal-400">学习建议</h3>
                   <ul className="list-disc list-inside mt-1">
                     {careerData.learning_suggestions.map((s, i) => (
                       <li key={i}>{s}</li>
@@ -178,9 +178,9 @@ export default function DocumentDetailPage() {
       )}
 
       {data.raw_text && (
-        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-          <h2 className="text-lg font-semibold mb-2">原文</h2>
-          <pre className="p-4 bg-gray-100 dark:bg-gray-900 rounded-lg whitespace-pre-wrap text-sm overflow-x-auto max-h-96">
+        <div className="p-5 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200/80 dark:border-slate-700/50 shadow-sm">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">原文</h2>
+          <pre className="p-4 bg-slate-100 dark:bg-slate-900 rounded-xl whitespace-pre-wrap text-sm overflow-x-auto max-h-96 text-slate-700 dark:text-slate-300">
             {data.raw_text}
           </pre>
         </div>

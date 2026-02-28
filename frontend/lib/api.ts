@@ -21,9 +21,15 @@ export async function apiFetch<T>(
   const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
 
   if (res.status === 401) {
-    if (typeof window !== "undefined") {
+    // 登录接口的 401 表示密码错误，不重定向，让调用方处理错误提示
+    const isLoginEndpoint = path.includes("/auth/login");
+    if (typeof window !== "undefined" && !isLoginEndpoint) {
       localStorage.removeItem("token");
       window.location.href = "/login";
+    }
+    if (isLoginEndpoint) {
+      const err = await res.json().catch(() => ({ detail: "Incorrect email or password" }));
+      throw new Error(err.detail || "邮箱或密码错误");
     }
     throw new Error("Unauthorized");
   }

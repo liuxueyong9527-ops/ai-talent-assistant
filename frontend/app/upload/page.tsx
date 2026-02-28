@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { apiUpload } from "@/lib/api";
+import { Select } from "@/components/Select";
 
 export default function UploadPage() {
   const router = useRouter();
@@ -35,28 +36,25 @@ export default function UploadPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">上传文档</h1>
+      <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">上传文档</h1>
       <form onSubmit={handleSubmit} className="max-w-md space-y-4">
         {error && (
-          <div className="p-3 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-lg">
+          <div className="p-3 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-xl">
             {error}
           </div>
         )}
+        <Select
+          label="文档类型"
+          value={docType}
+          onChange={(e) => setDocType(e.target.value as "resume" | "jd")}
+        >
+          <option value="resume">简历</option>
+          <option value="jd">职位描述</option>
+        </Select>
         <div>
-          <label className="block text-sm font-medium mb-2">文档类型</label>
-          <select
-            value={docType}
-            onChange={(e) => setDocType(e.target.value as "resume" | "jd")}
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800"
-          >
-            <option value="resume">简历</option>
-            <option value="jd">职位描述</option>
-          </select>
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">选择文件 (PDF / DOC / DOCX)</label>
+          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">选择文件 (PDF / DOC / DOCX)</label>
           <div
-            className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-500 transition cursor-pointer"
+            className="border-2 border-dashed border-slate-200 dark:border-slate-600 rounded-xl p-8 text-center hover:border-cyan-500 dark:hover:border-cyan-500/50 transition cursor-pointer bg-slate-50/50 dark:bg-slate-800/30"
             onClick={() => document.getElementById("file-input")?.click()}
           >
             <input
@@ -67,16 +65,16 @@ export default function UploadPage() {
               onChange={(e) => setFile(e.target.files?.[0] || null)}
             />
             {file ? (
-              <p className="text-gray-700 dark:text-gray-300">{file.name}</p>
+              <p className="text-slate-700 dark:text-slate-300 font-medium">{file.name}</p>
             ) : (
-              <p className="text-gray-500">点击或拖拽文件到此处</p>
+              <p className="text-slate-500">点击或拖拽文件到此处</p>
             )}
           </div>
         </div>
         <button
           type="submit"
           disabled={!isValid || loading}
-          className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          className="w-full py-3 bg-cyan-600 text-white rounded-xl hover:bg-cyan-700 disabled:opacity-50 shadow-lg shadow-cyan-500/25 transition"
         >
           {loading ? "上传中..." : "上传"}
         </button>

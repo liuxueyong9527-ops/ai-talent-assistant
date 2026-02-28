@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 
@@ -6,6 +8,7 @@ from app.core.auth import get_current_user
 from app.models.user import User
 from app.models.document import Document
 from app.models.extraction_result import ExtractionResult
+from app.models.match_analysis import MatchAnalysis
 from app.schemas.document import DocumentUploadResponse, DocumentDetailResponse, ExtractionResultSchema
 from app.services.file_service import save_upload
 from app.services.ai_service import parse_resume_or_jd
@@ -105,3 +108,35 @@ def get_document(
         extraction=extraction,
         created_at=doc.created_at.isoformat() if doc.created_at else "",
     )
+
+
+@router.delete("/{doc_id}")
+def delete_document(
+    doc_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    doc = db.query(Document).filter(Document.id == doc_id, Document.user_id == current_user.id).first()
+    if not doc:
+        raise HTTPException(status_code=404, detail="Document not found")
+
+    # 删除关联的匹配分析（作为 resume 或 jd 的记录）
+    db.query(MatchAnalysis).filter(
+        (MatchAnalysis.resume_id == doc_id) | (MatchAnalysis.jd_id == doc_id)
+    ).delete(synchronize_session=False)
+
+    # 删除提取结果
+    db.query(ExtractionResult).filter(ExtractionResult.document_id == doc_id).delete()
+
+    # 删除物理文件
+    if doc.file_path:
+        fp = Path(doc.file_path)
+        if fp.is_file():
+            try:
+                fp.unlink()
+            except OSError:
+                pass
+
+    db.delete(doc)
+    db.commit()
+    return {"ok": True}

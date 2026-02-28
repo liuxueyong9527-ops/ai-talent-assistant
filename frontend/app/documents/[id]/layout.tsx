@@ -1,17 +1,7 @@
-"use client";
-
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { Layout } from "@/components/Layout";
-
-export default function DocumentLayout({
+export default function DocumentDetailLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
-  useEffect(() => {
-    if (!localStorage.getItem("token")) router.replace("/login");
-  }, [router]);
-  return <Layout>{children}</Layout>;
+  return <>{children}</>;
 }

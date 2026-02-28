@@ -39,7 +39,7 @@ interface DashboardStats {
   recent_analyses: AnalysisItem[];
 }
 
-const COLORS = ["#3b82f6", "#60a5fa", "#93c5fd", "#bfdbfe", "#dbeafe"];
+const COLORS = ["#0891b2", "#22d3ee", "#67e8f9", "#a5f3fc", "#cffafe"];
 
 export default function DashboardPage() {
   const { data, isLoading } = useQuery({
@@ -48,7 +48,7 @@ export default function DashboardPage() {
   });
 
   if (isLoading) {
-    return <div className="text-gray-500">加载中...</div>;
+    return <div className="text-slate-500">加载中...</div>;
   }
 
   const topSkills = data?.skill_distribution?.slice(0, 10) ?? [];
@@ -60,38 +60,38 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">仪表板</h1>
+      <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">仪表板</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-          <p className="text-sm text-gray-600 dark:text-gray-400">总文档数</p>
-          <p className="text-2xl font-bold">{data?.total_documents ?? 0}</p>
+        <div className="p-5 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200/80 dark:border-slate-700/50 shadow-sm">
+          <p className="text-sm text-slate-600 dark:text-slate-400">总文档数</p>
+          <p className="text-2xl font-bold text-slate-900 dark:text-white">{data?.total_documents ?? 0}</p>
         </div>
-        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-          <p className="text-sm text-gray-600 dark:text-gray-400">简历数</p>
-          <p className="text-2xl font-bold">{data?.resumes_count ?? 0}</p>
+        <div className="p-5 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200/80 dark:border-slate-700/50 shadow-sm">
+          <p className="text-sm text-slate-600 dark:text-slate-400">简历数</p>
+          <p className="text-2xl font-bold text-slate-900 dark:text-white">{data?.resumes_count ?? 0}</p>
         </div>
-        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-          <p className="text-sm text-gray-600 dark:text-gray-400">职位描述数</p>
-          <p className="text-2xl font-bold">{data?.jds_count ?? 0}</p>
+        <div className="p-5 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200/80 dark:border-slate-700/50 shadow-sm">
+          <p className="text-sm text-slate-600 dark:text-slate-400">职位描述数</p>
+          <p className="text-2xl font-bold text-slate-900 dark:text-white">{data?.jds_count ?? 0}</p>
         </div>
-        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-          <p className="text-sm text-gray-600 dark:text-gray-400">平均匹配分</p>
-          <p className="text-2xl font-bold">{data?.avg_match_score ?? 0}%</p>
+        <div className="p-5 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200/80 dark:border-slate-700/50 shadow-sm">
+          <p className="text-sm text-slate-600 dark:text-slate-400">平均匹配分</p>
+          <p className="text-2xl font-bold text-cyan-600 dark:text-cyan-400">{data?.avg_match_score ?? 0}%</p>
         </div>
       </div>
 
       {topSkills.length > 0 && (
-        <div className="mb-8 p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-          <h2 className="text-lg font-semibold mb-4">技能分布</h2>
+        <div className="mb-8 p-6 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200/80 dark:border-slate-700/50 shadow-sm">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">技能分布</h2>
           <div className="flex gap-8">
             <div className="w-1/2 h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={topSkills} layout="vertical" margin={{ left: 80 }}>
-                  <CartesianGrid strokeDasharray="3 3" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                   <XAxis type="number" />
                   <YAxis type="category" dataKey="skill" width={80} tick={{ fontSize: 12 }} />
                   <Tooltip />
-                  <Bar dataKey="count" fill="#3b82f6" />
+                  <Bar dataKey="count" fill="#0891b2" radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -122,17 +122,17 @@ export default function DashboardPage() {
       )}
 
       {data?.recent_analyses && data.recent_analyses.length > 0 && (
-        <div className="mb-8 p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
-          <h2 className="text-lg font-semibold mb-4">最近分析</h2>
+        <div className="mb-8 p-6 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200/80 dark:border-slate-700/50 shadow-sm">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">最近分析</h2>
           <div className="space-y-2">
             {data.recent_analyses.map((a) => (
               <Link
                 key={a.id}
                 href={`/analysis/${a.id}`}
-                className="block p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="block p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700/50 transition"
               >
-                <span className="font-medium">分析 #{a.id}</span>
-                <span className="text-blue-600 ml-2">匹配 {a.match_score}%</span>
+                <span className="font-medium text-slate-900 dark:text-white">分析 #{a.id}</span>
+                <span className="text-cyan-600 dark:text-cyan-400 ml-2">匹配 {a.match_score}%</span>
               </Link>
             ))}
           </div>
@@ -142,13 +142,13 @@ export default function DashboardPage() {
       <div className="flex gap-4">
         <Link
           href="/upload"
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          className="px-5 py-2.5 bg-cyan-600 text-white rounded-xl hover:bg-cyan-700 shadow-lg shadow-cyan-500/25 transition"
         >
           上传文档
         </Link>
         <Link
           href="/analysis"
-          className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="px-5 py-2.5 border-2 border-slate-200 dark:border-slate-600 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/50 transition"
         >
           匹配分析
         </Link>
