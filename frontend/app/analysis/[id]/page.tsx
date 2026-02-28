@@ -26,16 +26,37 @@ export default function AnalysisDetailPage() {
     enabled: !!id,
   });
 
-  if (isLoading) return <div className="text-slate-500">加载中...</div>;
-  if (!data) return <div className="text-slate-500">分析不存在</div>;
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[300px]">
+        <div className="animate-spin w-8 h-8 border-2 border-cyan-500 border-t-transparent rounded-full" />
+        <p className="mt-4 text-slate-500 dark:text-slate-400">加载中...</p>
+      </div>
+    );
+  }
+  if (!data) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[300px] text-slate-500 dark:text-slate-400">
+        分析不存在
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <Link href="/analysis" className="text-cyan-600 hover:text-cyan-700 font-medium mb-4 inline-block">
+    <div className="max-w-3xl">
+      <Link
+        href="/analysis"
+        className="inline-flex items-center gap-2 text-cyan-600 hover:text-cyan-700 font-medium mb-6"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
         返回匹配分析
       </Link>
-      <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">匹配分析报告</h1>
-      <p className="text-sm text-slate-500 mb-6">{data.created_at}</p>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">匹配分析报告</h1>
+        <p className="text-slate-500 dark:text-slate-400 text-sm">{data.created_at}</p>
+      </div>
 
       <div className="mb-8 p-6 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200/80 dark:border-slate-700/50 shadow-sm">
         <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">匹配分数</h2>

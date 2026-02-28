@@ -32,12 +32,23 @@ export default function ChatPage() {
   };
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">AI 职业助手</h1>
-      <div className="max-w-2xl mx-auto">
-        <div className="h-96 border border-slate-200 dark:border-slate-700 rounded-xl overflow-y-auto p-4 mb-4 bg-white dark:bg-slate-800/80 shadow-sm">
+    <div className="flex flex-col items-center min-h-[calc(100vh-12rem)] py-8">
+      <div className="w-full max-w-2xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">AI 职业助手</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm">基于您的简历与职位描述，解答职业问题、提供改进建议</p>
+        </div>
+        <div className="h-96 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-y-auto p-5 mb-4 bg-white dark:bg-slate-800/80 shadow-sm">
           {messages.length === 0 ? (
-            <p className="text-slate-500">发送消息开始对话。我可以基于您上传的简历和职位描述，解答职业相关问题、提供改进建议。</p>
+            <div className="flex flex-col items-center justify-center h-full text-center">
+              <div className="w-14 h-14 rounded-2xl bg-cyan-100 dark:bg-cyan-900/40 flex items-center justify-center mb-4">
+                <svg className="w-7 h-7 text-cyan-600 dark:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </div>
+              <p className="text-slate-600 dark:text-slate-400">发送消息开始对话</p>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">我可以基于您上传的简历和职位描述，解答职业相关问题、提供改进建议</p>
+            </div>
           ) : (
             messages.map((m, i) => (
               <div
@@ -64,18 +75,18 @@ export default function ChatPage() {
             </div>
           )}
         </div>
-        <form onSubmit={handleSubmit} className="flex gap-2">
+        <form onSubmit={handleSubmit} className="flex gap-3">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="输入消息..."
-            className="flex-1 px-4 py-2.5 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
+            className="flex-1 px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
           />
           <button
             type="submit"
             disabled={loading}
-            className="px-5 py-2.5 bg-cyan-600 text-white rounded-xl hover:bg-cyan-700 disabled:opacity-50 shadow-lg shadow-cyan-500/25 transition"
+            className="px-6 py-3 bg-cyan-600 text-white font-medium rounded-xl hover:bg-cyan-700 disabled:opacity-50 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-200"
           >
             发送
           </button>

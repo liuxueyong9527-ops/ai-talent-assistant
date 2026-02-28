@@ -39,22 +39,46 @@ export default function DocumentsPage() {
   };
 
   if (isLoading) {
-    return <div className="text-slate-500">加载中...</div>;
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[300px]">
+        <div className="animate-spin w-8 h-8 border-2 border-cyan-500 border-t-transparent rounded-full" />
+        <p className="mt-4 text-slate-500 dark:text-slate-400">加载中...</p>
+      </div>
+    );
   }
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">我的文档</h1>
-      <Link
-        href="/upload"
-        className="inline-block mb-4 px-5 py-2.5 bg-cyan-600 text-white rounded-xl hover:bg-cyan-700 shadow-lg shadow-cyan-500/25 transition"
-      >
-        上传新文档
-      </Link>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">我的文档</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm">管理您的简历与职位描述</p>
+        </div>
+        <Link
+          href="/upload"
+          className="inline-flex items-center gap-2 px-6 py-3.5 bg-cyan-600 text-white font-medium rounded-xl hover:bg-cyan-700 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-200 shrink-0"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+          上传新文档
+        </Link>
+      </div>
       {docs?.length === 0 ? (
-        <p className="text-slate-500">暂无文档，请先上传。</p>
+        <div className="flex flex-col items-center justify-center py-16 rounded-2xl bg-slate-100/80 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+          <p className="text-slate-600 dark:text-slate-400 mb-6">暂无文档，请先上传</p>
+          <Link
+            href="/upload"
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-xl shadow-lg shadow-cyan-500/25 transition"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+            去上传
+          </Link>
+        </div>
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-3 max-w-2xl">
           {docs?.map((d) => (
             <div
               key={d.id}
