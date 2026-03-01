@@ -10,12 +10,13 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 24 hours
     
     DATABASE_URL: str = "sqlite:///./data/app.db"
-    CORS_ORIGINS: list[str] = [
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://[::1]:3000",
-        "http://0.0.0.0:3000",
-    ]
+    # 逗号分隔的 CORS 允许来源，如: https://xxx.up.railway.app 或 url1,url2
+    CORS_ORIGINS: str = "http://localhost:3000,http://127.0.0.1:3000,http://[::1]:3000,http://0.0.0.0:3000"
+
+    @property
+    def cors_origins_list(self) -> list[str]:
+        """解析后的 CORS 来源列表"""
+        return [x.strip() for x in self.CORS_ORIGINS.split(",") if x.strip()]
     
     # OpenRouter（优先）或 OpenAI
     OPENROUTER_API_KEY: str = os.getenv("OPENROUTER_API_KEY", "")
