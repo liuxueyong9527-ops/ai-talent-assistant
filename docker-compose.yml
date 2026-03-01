@@ -18,7 +18,9 @@ services:
     volumes:
       - ./data:/app/data
     environment:
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - AI_MODEL=${AI_MODEL:-openai/gpt-4o-mini}
       - SECRET_KEY=${SECRET_KEY:-dev-secret-key}
       - DATABASE_URL=sqlite:///./data/app.db
     command: sh -c "mkdir -p data/uploads && uvicorn app.main:app --host 0.0.0.0 --port 8000"

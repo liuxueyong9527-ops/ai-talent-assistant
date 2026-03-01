@@ -14,9 +14,14 @@ CHAT_SYSTEM = """你是一个专业的 AI 职业助手。你可以：
 
 
 def _get_client() -> Optional[OpenAI]:
-    if not settings.OPENAI_API_KEY:
-        return None
-    return OpenAI(api_key=settings.OPENAI_API_KEY)
+    if settings.OPENROUTER_API_KEY:
+        return OpenAI(
+            base_url=settings.AI_BASE_URL,
+            api_key=settings.OPENROUTER_API_KEY,
+        )
+    if settings.OPENAI_API_KEY:
+        return OpenAI(api_key=settings.OPENAI_API_KEY)
+    return None
 
 
 def get_chat_response(
@@ -27,7 +32,7 @@ def get_chat_response(
     """生成聊天回复，带上下文约束以控制幻觉"""
     client = _get_client()
     if not client:
-        return "请配置 OPENAI_API_KEY 以使用聊天功能。"
+        return "请配置 OPENROUTER_API_KEY 或 OPENAI_API_KEY 以使用聊天功能。"
 
     messages = [{"role": "system", "content": CHAT_SYSTEM}]
     if context:
@@ -41,7 +46,7 @@ def get_chat_response(
 
     try:
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=settings.effective_ai_model,
             messages=messages,
             temperature=0.5,
             max_tokens=1024,

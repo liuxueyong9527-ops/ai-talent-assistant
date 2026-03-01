@@ -46,7 +46,7 @@ flowchart TB
     Matcher --> Hallucination
     Career --> Hallucination
     ChatBot --> Hallucination
-    Hallucination --> OpenAI[OpenAI API]
+    Hallucination --> AI[OpenRouter / OpenAI]
 ```
 
 ## 功能
@@ -64,7 +64,7 @@ flowchart TB
 
 - 前端：Next.js 14、Tailwind CSS、Recharts、TanStack Query
 - 后端：FastAPI、SQLAlchemy、SQLite
-- AI：OpenAI GPT-4o-mini
+- AI：OpenRouter（推荐）或 OpenAI，默认模型 `openai/gpt-4o-mini`，可在 `.env` 中通过 `AI_MODEL` 切换
 
 ## 快速开始
 
@@ -93,10 +93,25 @@ npm run dev
 
 ### 环境变量
 
-创建 `backend/.env`：
+在项目根目录或 `backend/` 下创建 `.env`（本地开发时后端从 `backend/.env` 读取）：
+
+| 变量 | 说明 |
+|------|------|
+| `OPENROUTER_API_KEY` | OpenRouter API Key，在 [openrouter.ai/keys](https://openrouter.ai/keys) 获取，**推荐**，支持多模型、国内访问友好 |
+| `AI_MODEL` | 模型 ID，默认 `openai/gpt-4o-mini`；用 OpenRouter 时可改为如 `meta-llama/llama-3.3-70b-instruct:free` 等 |
+| `OPENAI_API_KEY` | 可选，直接使用 OpenAI 时填写，与 OpenRouter 二选一 |
+| `SECRET_KEY` | 应用密钥，用于 JWT 等，生产环境务必修改 |
+
+示例 `backend/.env`：
 
 ```
+# OpenRouter（推荐）
+OPENROUTER_API_KEY=sk-or-your-key
+AI_MODEL=openai/gpt-4o-mini
+
+# 或直接使用 OpenAI（与上面二选一）
 OPENAI_API_KEY=sk-your-key
+
 SECRET_KEY=your-secret-key
 ```
 
@@ -104,7 +119,7 @@ SECRET_KEY=your-secret-key
 
 ```bash
 cp .env.example .env
-# 编辑 .env 填入 OPENAI_API_KEY
+# 编辑 .env：填入 OPENROUTER_API_KEY（推荐）或 OPENAI_API_KEY，以及 SECRET_KEY
 docker-compose up --build
 ```
 
