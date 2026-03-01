@@ -1,12 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { apiFetch } from "@/lib/api";
 
 export default function ChatPage() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
   const [loading, setLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, loading]);
+
+  useEffect(() => {
+    const el = textareaRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${Math.min(el.scrollHeight, 192)}px`;
+  }, [message]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e as unknown as React.FormEvent);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,11 +56,11 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-[calc(100vh-12rem)] py-8">
-      <div className="w-full max-w-2xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">AI 职业助手</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm">基于您的简历与职位描述，解答职业问题、提供改进建议</p>
+    <div className="flex flex-col items-center min-h-[calc(100vh-12rem)] py-4">
+      <div className="w-full max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto">
+        <div className="text-center mb-4">
+          <h1 className="text-xl font-semibold text-slate-900 dark:text-white mb-0.5">AI 职业助手</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-xs">基于您的简历与职位描述，解答职业问题、提供改进建议</p>
         </div>
         <div className="h-96 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-y-auto p-5 mb-4 bg-white dark:bg-slate-800/80 shadow-sm">
           {messages.length === 0 ? (
@@ -74,21 +98,30 @@ export default function ChatPage() {
               </span>
             </div>
           )}
+          <div ref={messagesEndRef} />
         </div>
-        <form onSubmit={handleSubmit} className="flex gap-3">
-          <input
-            type="text"
+        <form
+          onSubmit={handleSubmit}
+          className="flex items-end gap-2 w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm focus-within:ring-2 focus-within:ring-cyan-500/50 focus-within:border-cyan-500 dark:focus-within:border-cyan-500 transition-all p-2"
+        >
+          <textarea
+            ref={textareaRef}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="输入消息..."
-            className="flex-1 px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-800 focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
+            onKeyDown={handleKeyDown}
+            placeholder="输入消息... (Enter 发送，Shift+Enter 换行)"
+            rows={1}
+            className="flex-1 min-h-[48px] max-h-48 resize-none bg-transparent py-3 px-3 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none rounded-lg"
           />
           <button
             type="submit"
-            disabled={loading}
-            className="px-6 py-3 bg-cyan-600 text-white font-medium rounded-xl hover:bg-cyan-700 disabled:opacity-50 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-200"
+            disabled={loading || !message.trim()}
+            className="flex-shrink-0 w-10 h-10 rounded-xl bg-cyan-600 text-white flex items-center justify-center hover:bg-cyan-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            aria-label="发送"
           >
-            发送
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
           </button>
         </form>
       </div>
