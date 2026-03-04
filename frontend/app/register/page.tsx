@@ -22,11 +22,7 @@ export default function RegisterPage() {
     setError("");
     setLoading(true);
     try {
-      await apiFetch("/api/auth/register", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-      });
-      const res = await apiFetch<{ access_token: string }>("/api/auth/login", {
+      const res = await apiFetch<{ access_token: string }>("/api/auth/register", {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });

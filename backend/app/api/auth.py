@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.core.auth import verify_password, get_password_hash, create_access_token
 from app.models.user import User
-from app.schemas.auth import UserCreate, UserLogin, Token, UserResponse
+from app.schemas.auth import UserCreate, UserLogin, Token
 
 router = APIRouter()
 
@@ -19,7 +19,7 @@ def login_form(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = D
     return Token(access_token=create_access_token(data={"sub": user.email}))
 
 
-@router.post("/register", response_model=UserResponse)
+@router.post("/register", response_model=Token)
 def register(user_data: UserCreate, db: Session = Depends(get_db)):
     if db.query(User).filter(User.email == user_data.email).first():
         raise HTTPException(status_code=400, detail="Email already registered")
@@ -30,11 +30,8 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
     db.add(user)
     db.commit()
     db.refresh(user)
-    return UserResponse(
-        id=user.id,
-        email=user.email,
-        created_at=user.created_at.isoformat() if user.created_at else "",
-    )
+    token = create_access_token(data={"sub": user.email})
+    return Token(access_token=token)
 
 
 @router.post("/login", response_model=Token)
