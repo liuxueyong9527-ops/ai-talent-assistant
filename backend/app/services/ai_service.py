@@ -13,67 +13,67 @@ EXTRACTION_SCHEMA = {
     "responsibilities": ["string"],
 }
 
-EXTRACTION_PROMPT = """你是一个专业的简历/职位描述解析助手。请从以下文本中提取结构化信息。
+EXTRACTION_PROMPT = """You are a professional resume/job description parsing assistant. Extract structured information from the following text.
 
-**重要规则**：
-1. 仅提取文本中明确存在的信息，不要编造或推测
-2. 如某项信息不存在，返回空数组 []
-3. 技能名称必须与原文一致或为原文的规范化表达
-4. 输出必须是合法的 JSON，不要包含其他文字
+**Important rules**:
+1. Only extract information that is explicitly present in the text; do not fabricate or speculate
+2. If certain information is not present, return an empty array []
+3. Skill names must match the original text or be normalized expressions of it
+4. Output must be valid JSON only; do not include any other text
 
-文本：
+Text:
 ---
 {text}
 ---
 
-请输出 JSON，格式如下：
+Output JSON in the following format:
 {{
-  "skills": ["技能1", "技能2"],
-  "experience": [{{"company": "公司名", "role": "职位", "duration": "时长"}}],
-  "education": [{{"school": "学校", "degree": "学位", "year": "年份"}}],
-  "responsibilities": ["职责描述1", "职责描述2"]
+  "skills": ["skill1", "skill2"],
+  "experience": [{{"company": "company name", "role": "job title", "duration": "duration"}}],
+  "education": [{{"school": "school name", "degree": "degree", "year": "year"}}],
+  "responsibilities": ["responsibility 1", "responsibility 2"]
 }}"""
 
-MATCH_PROMPT = """你是一个专业的简历-职位匹配分析助手。基于以下简历和职位描述，进行匹配分析。
+MATCH_PROMPT = """You are a professional resume-job matching analyst. Based on the following resume and job description, perform a matching analysis.
 
-**重要规则**：
-1. 匹配分数必须基于简历与JD中明确存在的技能和经历，不得虚构
-2. matched_skills 中的每一项必须能在简历原文中找到对应内容
-3. skill_gaps 中的每一项必须能在JD原文中找到要求但简历未体现
-4. improvement_suggestions 必须具体可操作，且与技能差距相关
-5. 输出必须是合法的 JSON
+**Important rules**:
+1. Match score must be based on skills and experience explicitly present in both resume and JD; do not fabricate
+2. Each item in matched_skills must have corresponding content in the original resume text
+3. Each item in skill_gaps must be a requirement in the JD that is not reflected in the resume
+4. improvement_suggestions must be specific, actionable, and related to the skill gaps
+5. Output must be valid JSON
 
-**简历解析结果**：
+**Resume parsing result**:
 {resume}
 
-**职位描述解析结果**：
+**Job description parsing result**:
 {jd}
 
-请输出 JSON：
+Output JSON:
 {{
-  "match_percentage": 0-100 的整数,
-  "matched_skills": ["已匹配技能1", "已匹配技能2"],
-  "skill_gaps": ["缺失技能1", "缺失技能2"],
-  "improvement_suggestions": ["具体改进建议1", "具体改进建议2"]
+  "match_percentage": integer 0-100,
+  "matched_skills": ["matched skill 1", "matched skill 2"],
+  "skill_gaps": ["missing skill 1", "missing skill 2"],
+  "improvement_suggestions": ["specific improvement 1", "specific improvement 2"]
 }}"""
 
-CAREER_PROMPT = """你是一个专业的职业发展顾问。基于以下简历解析结果，给出职业建议。
+CAREER_PROMPT = """You are a professional career development advisor. Based on the following resume parsing result, provide career advice.
 
-**重要规则**：
-1. 建议必须基于简历中已有的信息，可适当引用
-2. 不要虚构简历中不存在的经历或技能
-3. 输出必须是合法的 JSON
+**Important rules**:
+1. Suggestions must be based on information already in the resume; you may quote appropriately
+2. Do not fabricate experience or skills not present in the resume
+3. Output must be valid JSON
 
-**简历解析结果**：
+**Resume parsing result**:
 {resume}
 
-**目标岗位**：{target_role}
+**Target role**: {target_role}
 
-请输出 JSON：
+Output JSON:
 {{
-  "resume_tips": ["简历改进建议1", "简历改进建议2"],
-  "skill_roadmap": [{{"skill": "技能名", "priority": "高/中/低", "reason": "原因"}}],
-  "learning_suggestions": ["学习建议1", "学习建议2"]
+  "resume_tips": ["resume improvement tip 1", "resume improvement tip 2"],
+  "skill_roadmap": [{{"skill": "skill name", "priority": "high/medium/low", "reason": "reason"}}],
+  "learning_suggestions": ["learning suggestion 1", "learning suggestion 2"]
 }}"""
 
 
@@ -215,7 +215,7 @@ def get_career_advice(resume_extraction: dict, target_role: str = "") -> dict:
         }
 
     resume_str = json.dumps(resume_extraction, ensure_ascii=False, indent=2)
-    target_role = target_role or "与当前经历相关的进阶岗位"
+    target_role = target_role or "career advancement roles relevant to current experience"
 
     prompt = CAREER_PROMPT.format(resume=resume_str, target_role=target_role)
     try:

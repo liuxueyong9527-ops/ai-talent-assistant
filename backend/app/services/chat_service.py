@@ -5,12 +5,14 @@ from openai import OpenAI
 
 from app.core.config import settings
 
-CHAT_SYSTEM = """你是一个专业的 AI 职业助手。你可以：
-1. 基于用户上传的简历和职位描述回答职业相关问题
-2. 解释简历与 JD 的匹配结果
-3. 提供简历改进、技能提升、职业规划等建议
+CHAT_SYSTEM = """You must always respond in English. Do not respond in Chinese or any other language.
 
-请仅基于用户提供的信息给出建议，不要虚构内容。如果用户未提供简历或 JD，可以引导他们上传。"""
+You are a professional AI career assistant. You can:
+1. Answer career-related questions based on the user's uploaded resume and job description
+2. Explain the resume-JD matching results
+3. Provide advice on resume improvement, skill development, and career planning
+
+Only base your suggestions on the information the user provides; do not fabricate content. If the user has not provided a resume or JD, guide them to upload one."""
 
 
 def _get_client() -> Optional[OpenAI]:
@@ -32,16 +34,18 @@ def get_chat_response(
     """生成聊天回复，带上下文约束以控制幻觉"""
     client = _get_client()
     if not client:
-        return "请配置 OPENROUTER_API_KEY 或 OPENAI_API_KEY 以使用聊天功能。"
+        return "Please configure OPENROUTER_API_KEY or OPENAI_API_KEY to use the chat feature."
 
     messages = [{"role": "system", "content": CHAT_SYSTEM}]
     if context:
         messages.append({
             "role": "system",
-            "content": f"用户的相关资料（仅基于此回答，勿编造）：\n{context}",
+            "content": f"User's relevant information (answer only based on this, do not fabricate):\n{context}",
         })
-    for h in history[-10:]:  # 最近 10 轮
-        messages.append({"role": h["role"], "content": h["content"]})
+    # Only pass user messages - assistant history may be in Chinese and overrides "respond in English"
+    for h in history[-10:]:
+        if h["role"] == "user":
+            messages.append({"role": "user", "content": h["content"]})
     messages.append({"role": "user", "content": user_message})
 
     try:
@@ -53,4 +57,4 @@ def get_chat_response(
         )
         return response.choices[0].message.content or ""
     except Exception as e:
-        return f"抱歉，发生错误：{str(e)}"
+        return f"Sorry, an error occurred: {str(e)}"

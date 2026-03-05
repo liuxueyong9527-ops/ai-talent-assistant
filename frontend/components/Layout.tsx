@@ -49,11 +49,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
   };
 
   const navLinks = [
-    { href: "/dashboard", label: "仪表板", icon: icons.dashboard },
-    { href: "/upload", label: "上传", icon: icons.upload },
-    { href: "/documents", label: "文档", icon: icons.documents },
-    { href: "/analysis", label: "匹配分析", icon: icons.analysis },
-    { href: "/chat", label: "AI 助手", icon: icons.chat },
+    { href: "/dashboard", label: "Dashboard", icon: icons.dashboard },
+    { href: "/upload", label: "Upload", icon: icons.upload },
+    { href: "/documents", label: "Documents", icon: icons.documents },
+    { href: "/analysis", label: "Match Analysis", icon: icons.analysis },
+    { href: "/chat", label: "AI Assistant", icon: icons.chat },
   ] as const;
 
   const isActive = (href: string) =>
@@ -81,7 +81,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <span className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent dark:from-cyan-400 dark:to-blue-400">
                 AI
               </span>
-              <span className="text-slate-700 dark:text-slate-300"> 人才助手</span>
+              <span className="text-slate-700 dark:text-slate-300"> Talent Assistant</span>
             </span>
           </Link>
           {/* 桌面端：居中菜单 */}
@@ -100,14 +100,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
               className="hidden md:flex items-center gap-1.5 text-sm text-slate-600 dark:text-slate-400 hover:text-red-600"
             >
               {icons.logout}
-              退出
+              Log Out
             </button>
             {/* 移动端：汉堡菜单按钮 */}
             <button
               type="button"
               onClick={() => setMenuOpen((o) => !o)}
               className="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-              aria-label="切换菜单"
+              aria-label="Toggle menu"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {menuOpen ? (
@@ -143,7 +143,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 className="flex items-center gap-2 py-2 px-3 rounded-lg text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
               >
                 {icons.logout}
-                退出
+                Log Out
               </button>
             </div>
           </div>

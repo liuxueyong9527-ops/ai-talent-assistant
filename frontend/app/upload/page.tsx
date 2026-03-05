@@ -49,8 +49,8 @@ export default function UploadPage() {
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-12rem)] py-8">
       <div className="w-full max-w-md mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">上传文档</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm">支持 PDF、DOC、DOCX 格式</p>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Upload Document</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm">Supports PDF, DOC, DOCX formats</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-5">
           {error && (
@@ -60,19 +60,19 @@ export default function UploadPage() {
           )}
           {success && (
             <div className="p-3 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 rounded-xl text-center">
-              上传成功
+              Upload successful
             </div>
           )}
           <Select
-            label="文档类型"
+            label="Document Type"
             value={docType}
             onChange={(e) => setDocType(e.target.value as "resume" | "jd")}
           >
-            <option value="resume">简历</option>
-            <option value="jd">职位描述</option>
+            <option value="resume">Resume</option>
+            <option value="jd">Job Description</option>
           </Select>
           <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 text-center">选择文件</label>
+            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 text-center">Select File</label>
             <div
               className="border-2 border-dashed border-slate-200 dark:border-slate-600 rounded-2xl p-10 text-center hover:border-cyan-500 dark:hover:border-cyan-500/50 hover:bg-cyan-50/30 dark:hover:bg-cyan-900/10 transition-all duration-200 cursor-pointer bg-slate-50/50 dark:bg-slate-800/30"
               onClick={() => document.getElementById("file-input")?.click()}
@@ -95,14 +95,14 @@ export default function UploadPage() {
                     </svg>
                   </div>
                   <p className="text-slate-700 dark:text-slate-300 font-medium truncate max-w-full px-2">{file.name}</p>
-                  <p className="text-slate-400 dark:text-slate-500 text-sm">点击可重新选择</p>
+                  <p className="text-slate-400 dark:text-slate-500 text-sm">Click to choose another file</p>
                 </div>
               ) : (
                 <div className="flex flex-col items-center gap-3">
                   <div className="w-16 h-16 rounded-2xl bg-cyan-100/80 dark:bg-cyan-900/30 flex items-center justify-center">
                     {uploadIcon}
                   </div>
-                  <p className="text-slate-600 dark:text-slate-400 font-medium">点击或拖拽文件到此处</p>
+                  <p className="text-slate-600 dark:text-slate-400 font-medium">Click or drag file here</p>
                   <p className="text-slate-400 dark:text-slate-500 text-sm">PDF / DOC / DOCX</p>
                 </div>
               )}
@@ -113,7 +113,7 @@ export default function UploadPage() {
             disabled={!isValid || loading}
             className="w-full py-3.5 bg-cyan-600 text-white rounded-xl font-medium hover:bg-cyan-700 disabled:opacity-50 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-200"
           >
-            {loading ? "上传中..." : "上传"}
+            {loading ? "Uploading..." : "Upload"}
           </button>
         </form>
       </div>

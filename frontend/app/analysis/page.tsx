@@ -52,12 +52,12 @@ export default function AnalysisPage() {
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-12rem)] py-8">
       <div className="w-full max-w-md mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">匹配分析</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm">选择简历与职位描述，获取 AI 智能匹配报告</p>
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Match Analysis</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm">Select resume and job description to get AI-powered match report</p>
         </div>
         {docs?.length === 0 ? (
           <div className="text-center p-8 rounded-2xl bg-slate-100/80 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-            <p className="text-slate-600 dark:text-slate-400 mb-4">请先上传简历和职位描述</p>
+            <p className="text-slate-600 dark:text-slate-400 mb-4">Please upload resume and job description first</p>
             <Link
               href="/upload"
               className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-xl shadow-lg shadow-cyan-500/25 transition"
@@ -65,7 +65,7 @@ export default function AnalysisPage() {
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
-              去上传
+              Upload
             </Link>
           </div>
         ) : (
@@ -77,11 +77,11 @@ export default function AnalysisPage() {
                 </div>
               )}
               <Select
-                label="选择简历"
+                label="Select Resume"
                 value={resumeId}
                 onChange={(e) => setResumeId(e.target.value ? Number(e.target.value) : "")}
               >
-                <option value="">请选择简历</option>
+                <option value="">Please select resume</option>
                 {resumes.map((r) => (
                   <option key={r.id} value={r.id}>
                     {r.original_filename}
@@ -89,11 +89,11 @@ export default function AnalysisPage() {
                 ))}
               </Select>
               <Select
-                label="选择职位描述"
+                label="Select Job Description"
                 value={jdId}
                 onChange={(e) => setJdId(e.target.value ? Number(e.target.value) : "")}
               >
-                <option value="">请选择职位描述</option>
+                <option value="">Please select job description</option>
                 {jds.map((j) => (
                   <option key={j.id} value={j.id}>
                     {j.original_filename}
@@ -105,17 +105,17 @@ export default function AnalysisPage() {
                 disabled={!resumeId || !jdId || loading}
                 className="w-full py-3.5 bg-cyan-600 text-white rounded-xl font-medium hover:bg-cyan-700 disabled:opacity-50 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-200"
               >
-                {loading ? "AI 分析中..." : "开始匹配"}
+                {loading ? "Analyzing..." : "Start Match"}
               </button>
             </form>
             {analysisId && (
               <div className="mt-6 p-5 text-center rounded-2xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200/80 dark:border-emerald-800/50">
-                <p className="mb-3 text-slate-800 dark:text-slate-200 font-medium">分析完成！</p>
+                <p className="mb-3 text-slate-800 dark:text-slate-200 font-medium">Analysis complete!</p>
                 <Link
                   href={`/analysis/${analysisId}`}
                   className="inline-flex items-center gap-2 text-cyan-600 hover:text-cyan-700 font-medium"
                 >
-                  查看匹配报告
+                  View Match Report
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>

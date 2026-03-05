@@ -49,7 +49,7 @@ export default function LoginPage() {
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          返回首页
+          Back to Home
         </Link>
         <div className="p-8 rounded-2xl bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border border-slate-200/80 dark:border-slate-700/50 shadow-xl shadow-slate-200/50 dark:shadow-none">
           <div className="flex items-center gap-3 mb-8">
@@ -59,8 +59,8 @@ export default function LoginPage() {
               </svg>
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-slate-900 dark:text-white">登录</h1>
-              <p className="text-sm text-slate-500 dark:text-slate-400">欢迎回来</p>
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Log In</h1>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Welcome back</p>
             </div>
           </div>
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -70,7 +70,7 @@ export default function LoginPage() {
               </div>
             )}
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">邮箱</label>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Email</label>
               <input
                 type="email"
                 value={email}
@@ -81,7 +81,7 @@ export default function LoginPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">密码</label>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Password</label>
               <input
                 type="password"
                 value={password}
@@ -96,14 +96,14 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full py-3.5 bg-cyan-600 text-white rounded-xl hover:bg-cyan-700 disabled:opacity-50 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all font-medium"
             >
-              {loading ? "登录中..." : "登录"}
+              {loading ? "Logging in..." : "Log In"}
             </button>
           </form>
           <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
             <p className="text-center text-sm text-slate-600 dark:text-slate-400">
-              还没有账号？{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/register" className="text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300 font-medium hover:underline underline-offset-2">
-                立即注册
+                Sign Up
               </Link>
             </p>
           </div>

@@ -48,7 +48,7 @@ export default function ChatPage() {
     } catch (err) {
       setMessages((m) => [
         ...m,
-        { role: "assistant", content: "发生错误，请稍后重试。" },
+        { role: "assistant", content: "An error occurred. Please try again later." },
       ]);
     } finally {
       setLoading(false);
@@ -59,8 +59,8 @@ export default function ChatPage() {
     <div className="flex flex-col items-center min-h-[calc(100vh-12rem)] py-4">
       <div className="w-full max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto">
         <div className="text-center mb-4">
-          <h1 className="text-xl font-semibold text-slate-900 dark:text-white mb-0.5">AI 职业助手</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-xs">基于您的简历与职位描述，解答职业问题、提供改进建议</p>
+          <h1 className="text-xl font-semibold text-slate-900 dark:text-white mb-0.5">AI Career Assistant</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-xs">Answer career questions and provide improvement suggestions based on your resume and job descriptions</p>
         </div>
         <div className="h-96 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-y-auto p-5 mb-4 bg-white dark:bg-slate-800/80 shadow-sm">
           {messages.length === 0 ? (
@@ -70,8 +70,8 @@ export default function ChatPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
               </div>
-              <p className="text-slate-600 dark:text-slate-400">发送消息开始对话</p>
-              <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">我可以基于您上传的简历和职位描述，解答职业相关问题、提供改进建议</p>
+              <p className="text-slate-600 dark:text-slate-400">Send a message to start the conversation</p>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">I can answer career-related questions and provide improvement suggestions based on your uploaded resume and job descriptions</p>
             </div>
           ) : (
             messages.map((m, i) => (
@@ -94,7 +94,7 @@ export default function ChatPage() {
           {loading && (
             <div className="text-left mb-4">
               <span className="inline-block px-4 py-2 bg-slate-200 dark:bg-slate-700 rounded-xl animate-pulse">
-                思考中...
+                Thinking...
               </span>
             </div>
           )}
@@ -109,7 +109,7 @@ export default function ChatPage() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="输入消息... (Enter 发送，Shift+Enter 换行)"
+            placeholder="Type a message... (Enter to send, Shift+Enter for new line)"
             rows={1}
             className="flex-1 min-h-[48px] max-h-48 resize-none bg-transparent py-3 px-3 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none rounded-lg"
           />
@@ -117,7 +117,7 @@ export default function ChatPage() {
             type="submit"
             disabled={loading || !message.trim()}
             className="flex-shrink-0 w-10 h-10 rounded-xl bg-cyan-600 text-white flex items-center justify-center hover:bg-cyan-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-            aria-label="发送"
+            aria-label="Send"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

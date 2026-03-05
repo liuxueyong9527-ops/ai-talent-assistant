@@ -29,13 +29,13 @@ def _build_context(db: Session, user_id: int) -> str:
         if er and er.skills:
             try:
                 skills = json.loads(er.skills)
-                info += f" 技能: {', '.join(skills[:15])}"
+                info += f" skills: {', '.join(skills[:15])}"
             except Exception:
                 pass
         if d.raw_text:
-            info += f"\n摘要: {d.raw_text[:500]}..."
+            info += f"\nSummary: {d.raw_text[:500]}..."
         parts.append(info)
-    return "\n\n".join(parts) if parts else "用户暂未上传简历或职位描述。"
+    return "\n\n".join(parts) if parts else "User has not uploaded resume or job description yet."
 
 
 @router.post("")

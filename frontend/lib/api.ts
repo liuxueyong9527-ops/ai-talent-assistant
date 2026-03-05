@@ -29,7 +29,7 @@ export async function apiFetch<T>(
     }
     if (isLoginEndpoint) {
       const err = await res.json().catch(() => ({ detail: "Incorrect email or password" }));
-      throw new Error(err.detail || "邮箱或密码错误");
+      throw new Error(err.detail || "Incorrect email or password");
     }
     throw new Error("Unauthorized");
   }

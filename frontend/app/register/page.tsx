@@ -49,7 +49,7 @@ export default function RegisterPage() {
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          返回首页
+          Back to Home
         </Link>
         <div className="p-8 rounded-2xl bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border border-slate-200/80 dark:border-slate-700/50 shadow-xl shadow-slate-200/50 dark:shadow-none">
           <div className="flex items-center gap-3 mb-8">
@@ -59,8 +59,8 @@ export default function RegisterPage() {
               </svg>
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-slate-900 dark:text-white">注册</h1>
-              <p className="text-sm text-slate-500 dark:text-slate-400">创建您的账号</p>
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Sign Up</h1>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Create your account</p>
             </div>
           </div>
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -70,7 +70,7 @@ export default function RegisterPage() {
               </div>
             )}
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">邮箱</label>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Email</label>
               <input
                 type="email"
                 value={email}
@@ -81,14 +81,14 @@ export default function RegisterPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">密码</label>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Password</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                placeholder="至少 6 位字符"
+                placeholder="At least 6 characters"
                 className="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl bg-slate-50/50 dark:bg-slate-900/50 focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition placeholder:text-slate-400"
               />
             </div>
@@ -97,14 +97,14 @@ export default function RegisterPage() {
               disabled={loading}
               className="w-full py-3.5 bg-cyan-600 text-white rounded-xl hover:bg-cyan-700 disabled:opacity-50 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all font-medium"
             >
-              {loading ? "注册中..." : "注册"}
+              {loading ? "Signing up..." : "Sign Up"}
             </button>
           </form>
           <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
             <p className="text-center text-sm text-slate-600 dark:text-slate-400">
-              已有账号？{" "}
+              Already have an account?{" "}
               <Link href="/login" className="text-cyan-600 hover:text-cyan-700 dark:text-cyan-400 dark:hover:text-cyan-300 font-medium hover:underline underline-offset-2">
-                立即登录
+                Log In
               </Link>
             </p>
           </div>

@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 
 const features = [
   {
-    title: "智能简历解析",
-    desc: "一键上传简历，AI 自动提取关键信息与技能标签",
+    title: "Smart Resume Parsing",
+    desc: "Upload your resume and let AI extract key information and skill tags automatically",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -14,8 +14,8 @@ const features = [
     ),
   },
   {
-    title: "职位智能匹配",
-    desc: "对比简历与岗位要求，生成匹配度分析与改进建议",
+    title: "Intelligent Job Matching",
+    desc: "Compare your resume with job requirements and get match analysis with improvement suggestions",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
@@ -23,8 +23,8 @@ const features = [
     ),
   },
   {
-    title: "AI 职业顾问",
-    desc: "基于分析结果，提供个性化职业发展与面试建议",
+    title: "AI Career Advisor",
+    desc: "Get personalized career development and interview advice based on analysis results",
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -57,17 +57,17 @@ export default function Home() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500" />
             </span>
-            AI 驱动 · 智能分析
+            AI-Powered · Smart Analysis
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">
             <span className="bg-gradient-to-r from-slate-900 via-slate-700 to-cyan-800 dark:from-white dark:via-slate-200 dark:to-cyan-200 bg-clip-text text-transparent">
-              AI 智能人才助手
+              AI Talent Assistant
             </span>
           </h1>
           <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-10">
-            上传简历与职位描述，获取 AI 深度分析与个性化职业建议，
+            Upload your resume and job descriptions to get AI-powered analysis and personalized career advice.
             <br className="hidden sm:block" />
-            让求职更高效、更精准
+            Make your job search more efficient and targeted.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {isLoggedIn ? (
@@ -76,13 +76,13 @@ export default function Home() {
                   href="/dashboard"
                   className="group px-8 py-3.5 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-xl shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-200"
                 >
-                  个人中心
+                  Dashboard
                 </Link>
                 <Link
                   href="/upload"
                   className="px-8 py-3.5 border-2 border-slate-200 dark:border-slate-600 rounded-xl font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:border-slate-300 dark:hover:border-slate-500 transition-all duration-200"
                 >
-                  上传简历
+                  Upload Resume
                 </Link>
               </>
             ) : (
@@ -91,13 +91,13 @@ export default function Home() {
                   href="/login"
                   className="group px-8 py-3.5 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-xl shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transition-all duration-200"
                 >
-                  登录
+                  Log In
                 </Link>
                 <Link
                   href="/register"
                   className="px-8 py-3.5 border-2 border-slate-200 dark:border-slate-600 rounded-xl font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:border-slate-300 dark:hover:border-slate-500 transition-all duration-200"
                 >
-                  免费注册
+                  Sign Up
                 </Link>
               </>
             )}
