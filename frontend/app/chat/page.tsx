@@ -59,8 +59,8 @@ export default function ChatPage() {
     <div className="flex flex-col items-center min-h-[calc(100vh-12rem)] py-4">
       <div className="w-full max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto">
         <div className="text-center mb-4">
-          <h1 className="text-xl font-semibold text-slate-900 dark:text-white mb-0.5">AI Career Assistant</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-xs">Answer career questions and provide improvement suggestions based on your resume and job descriptions</p>
+          <h1 className="text-xl font-semibold text-slate-900 dark:text-white mb-0.5">AI Career & Business Assistant</h1>
+          <p className="text-slate-500 dark:text-slate-400 text-xs">Career: resume & JD matching, improvement advice. Business: market entry prep, industry & local context (e.g. new city/country).</p>
         </div>
         <div className="h-96 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-y-auto p-5 mb-4 bg-white dark:bg-slate-800/80 shadow-sm">
           {messages.length === 0 ? (
@@ -71,7 +71,7 @@ export default function ChatPage() {
                 </svg>
               </div>
               <p className="text-slate-600 dark:text-slate-400">Send a message to start the conversation</p>
-              <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">I can answer career-related questions and provide improvement suggestions based on your uploaded resume and job descriptions</p>
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Career: questions and improvement suggestions based on your resume and JD. Business: market entry preparation, industry and local context for your company.</p>
             </div>
           ) : (
             messages.map((m, i) => (
